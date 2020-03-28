@@ -2,5 +2,12 @@
 
 set -e
 
-npm run build --prefix functions
-npm run build --prefix frontend
+cd frontend
+yarn install
+yarn run build
+cd -
+
+cd functions
+yarn install
+yarn run build
+cd -

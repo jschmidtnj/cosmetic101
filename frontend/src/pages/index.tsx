@@ -71,6 +71,7 @@ const IndexPage = (args: IndexPageProps) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
                 isInvalid={!!formik.errors.email}
+                className="shadow-none"
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 {formik.errors.email}
