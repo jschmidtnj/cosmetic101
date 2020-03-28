@@ -1,0 +1,9 @@
+[build]
+  command = "./build.sh"
+  publish = "frontend/dist"
+  functions = "functions/lib"
+
+[[redirects]]
+  from = "/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

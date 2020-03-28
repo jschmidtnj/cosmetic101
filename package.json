@@ -1,0 +1,29 @@
+{
+  "name": "cosmetic101",
+  "version": "0.0.1",
+  "description": "ecommerce for skin care",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "netlify-lambda": "^1.6.3"
+  },
+  "scripts": {
+    "postinstall": "netlify-lambda install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jschmidtnj/cosmetic101.git"
+  },
+  "keywords": [
+    "skin",
+    "care",
+    "ecommerce"
+  ],
+  "author": "Joshua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jschmidtnj/cosmetic101/issues"
+  },
+  "homepage": "https://github.com/jschmidtnj/cosmetic101#readme"
+}
