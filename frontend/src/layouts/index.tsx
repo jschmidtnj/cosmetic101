@@ -1,12 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Loadable from "@loadable/component";
+import Helmet from "react-helmet";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { useStaticQuery, graphql } from "gatsby";
 
 // import Header from "../components/header";
 import "./index.scss";
 
-const Fonts = Loadable(() => import("../components/fontloader"))
+toast.configure({
+  autoClose: 4000,
+  draggable: false,
+  newestOnTop: true,
+  position: toast.POSITION.TOP_RIGHT,
+});
+
+const Fonts = Loadable(() => import("../components/fontloader"));
 
 interface LayoutArgs {
   children: any;
@@ -36,6 +46,11 @@ const Layout = (args: LayoutArgs) => {
   return (
     <>
       {/*<Header siteTitle={data.site.siteMetadata.title} />*/}
+      <Helmet>
+        <script
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`}
+        ></script>
+      </Helmet>
       <Fonts />
       <div
         style={{

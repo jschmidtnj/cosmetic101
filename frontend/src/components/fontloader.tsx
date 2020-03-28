@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import WebFont from "webfontloader";
 
 class FontLoader extends React.Component {
@@ -10,10 +10,8 @@ class FontLoader extends React.Component {
     });
   }
   render() {
-    return (
-      <></>
-    );
+    return <></>;
   }
-};
+}
 
-export default FontLoader
+export default FontLoader;

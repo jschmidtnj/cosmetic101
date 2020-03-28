@@ -1,7 +1,7 @@
-import Typography from "typography"
+import Typography from "typography";
 
-const typography = new Typography()
+const typography = new Typography();
 
 // Export helper functions
-export const { scale, rhythm, options } = typography
-export default typography
+export const { scale, rhythm, options } = typography;
+export default typography;

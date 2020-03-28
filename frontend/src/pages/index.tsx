@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import Img, { FluidObject } from "gatsby-image";
 import { graphql } from "gatsby";
 import { Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 import Layout from "../layouts/index";
 import SEO from "../components/seo";
@@ -24,21 +26,81 @@ interface IndexPageProps {
   };
 }
 
+interface EmailListArgs {
+  token: string;
+  email: string;
+}
+
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
+
 const IndexPage = (args: IndexPageProps) => {
   const formik = useFormik({
     validationSchema: yup.object({
-      email: yup
-        .string()
-        .email("invalid email address")
-        .required("required"),
+      email: yup.string().email("invalid email address").required("required"),
     }),
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: (formData, { setSubmitting, setStatus, resetForm }) => {
+      if (!window.grecaptcha) {
+        toast("cannot find recaptcha", {
+          type: "error",
+        });
+        return;
+      }
+      window.grecaptcha.ready(() => {
+        const onError = () => {
+          setStatus({ success: false });
+          setSubmitting(false);
+        };
+        try {
+          window.grecaptcha
+            .execute(process.env.RECAPTCHA_SITE_KEY, {
+              action: "login",
+            })
+            .then((recaptchaToken: string) => {
+              const listArgs: EmailListArgs = {
+                email: formData.email,
+                token: recaptchaToken,
+              };
+              // /functions/emaillist
+              axios
+                .post("/emaillist", listArgs, {
+                  baseURL: process.env.FUNCTIONS_URL,
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  toast(`successfully registered ${listArgs.email}`, {
+                    type: "success",
+                  });
+                  resetForm({});
+                  setStatus({
+                    success: true,
+                  });
+                })
+                .catch((err: any) => {
+                  toast(err.response.data.message, {
+                    type: "error",
+                  });
+                  onError();
+                });
+            })
+            .catch((err: Error) => {
+              toast(err.message, {
+                type: "error",
+              });
+              onError();
+            });
+        } catch (err) {
+          onError();
+        }
+      });
     },
     initialValues: {
       email: "",
-    }
-  })
+    },
+  });
   return (
     <Layout>
       <SEO title="Cosmetic 101" />

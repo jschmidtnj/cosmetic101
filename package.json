@@ -3,11 +3,20 @@
   "version": "0.0.1",
   "description": "ecommerce for skin care",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
+    "husky": "^4.2.3",
     "netlify-lambda": "^1.6.3"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit"
+    }
+  },
   "scripts": {
+    "precommit": "bash ./precommit.sh",
+    "init": "bash ./init.sh",
+    "update": "bash ./update.sh",
+    "nelify-dev": "netlify dev",
     "postinstall": "netlify-lambda install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -31,12 +31,25 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
-    "watch:test": "jest --watch"
+    "watch:test": "jest --watch",
+    "functions-serve": "netlify-lambda serve --config webpack.functions.js src --port $PORT",
+    "postinstall": "netlify-lambda install",
+    "precommit": "yarn lint"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@sendgrid/client": "^6.5.5",
+    "aws-lambda": "^1.0.5",
+    "axios": "^0.19.2",
+    "netlify-lambda": "^1.6.3",
+    "webpack-node-externals": "^1.7.2"
+  },
   "devDependencies": {
-    "@types/node": "^10.11.4",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/aws-lambda": "^8.10.46",
+    "@types/node": "^13.9.5",
     "coveralls": "^3.0.2",
+    "dotenv-webpack": "^1.7.0",
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
     "rimraf": "^2.6.2",

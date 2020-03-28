@@ -11,3 +11,8 @@ body {
 #gatsby-focus-wrapper {
   height: 100%;
 }
+
+/* remove recaptcha badge */
+.grecaptcha-badge {
+  visibility: hidden;
+}
