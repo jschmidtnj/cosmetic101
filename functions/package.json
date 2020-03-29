@@ -32,7 +32,7 @@
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch",
-    "functions-serve": "netlify-lambda serve --config webpack.functions.js src --port $PORT",
+    "serve": "netlify-lambda serve --config webpack.functions.js src --port $PORT",
     "postinstall": "netlify-lambda install",
     "precommit": "yarn lint"
   },

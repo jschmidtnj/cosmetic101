@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/camelcase: 0 */
+
 module.exports = {
   siteMetadata: {
     title: `Cosmetic 101`,
@@ -47,5 +49,18 @@ module.exports = {
         pathToConfigModule: `./typography`,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Cosmetic 101`,
+        short_name: `cosmetic101`,
+        start_url: `/`,
+        background_color: `#ffffffc9`,
+        theme_color: `#a2466c`,
+        display: `standalone`,
+        icon: `src/assets/images/icon.png`,
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import Img, { FluidObject } from "gatsby-image";
@@ -6,10 +6,18 @@ import { graphql } from "gatsby";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { css } from "@emotion/core";
+import BeatLoader from "react-spinners/BeatLoader";
 
 import Layout from "../layouts/index";
 import SEO from "../components/seo";
 import "./index.scss";
+
+const loaderCSS = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 interface IndexPageProps {
   data: {
@@ -38,21 +46,28 @@ declare global {
 }
 
 const IndexPage = (args: IndexPageProps) => {
+  const [sending, setSending] = useState(false);
   const formik = useFormik({
     validationSchema: yup.object({
       email: yup.string().email("invalid email address").required("required"),
     }),
+    initialValues: {
+      email: "",
+    },
     onSubmit: (formData, { setSubmitting, setStatus, resetForm }) => {
+      setSending(true);
       if (!window.grecaptcha) {
         toast("cannot find recaptcha", {
           type: "error",
         });
+        setSending(false);
         return;
       }
       window.grecaptcha.ready(() => {
         const onError = () => {
           setStatus({ success: false });
           setSubmitting(false);
+          setSending(false);
         };
         try {
           window.grecaptcha
@@ -77,6 +92,7 @@ const IndexPage = (args: IndexPageProps) => {
                   setStatus({
                     success: true,
                   });
+                  setSending(false);
                 })
                 .catch((err: any) => {
                   toast(err.response.data.message, {
@@ -92,13 +108,9 @@ const IndexPage = (args: IndexPageProps) => {
               onError();
             });
         } catch (err) {
-          console.error(err);
-          onError();
+          // console.error(err);
         }
       });
-    },
-    initialValues: {
-      email: "",
     },
   });
   return (
@@ -134,6 +146,13 @@ const IndexPage = (args: IndexPageProps) => {
                 value={formik.values.email}
                 isInvalid={!!formik.errors.email}
                 className="shadow-none"
+                disabled={sending}
+              />
+              <BeatLoader
+                css={loaderCSS}
+                size={10}
+                color={"red"}
+                loading={sending}
               />
               <Form.Control.Feedback className="feedback" type="invalid">
                 {formik.errors.email}
