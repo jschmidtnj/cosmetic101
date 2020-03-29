@@ -58,6 +58,7 @@ const IndexPage = (args: IndexPageProps) => {
         };
         try {
           console.log("recaptcha ready");
+          console.log(process.env.RECAPTCHA_SITE_KEY);
           window.grecaptcha
             .execute(process.env.RECAPTCHA_SITE_KEY, {
               action: "login",
@@ -90,12 +91,15 @@ const IndexPage = (args: IndexPageProps) => {
                 });
             })
             .catch((err: Error) => {
+              console.log("got error with recaptcha execute");
+              console.log(err);
               toast(err.message, {
                 type: "error",
               });
               onError();
             });
         } catch (err) {
+          console.log(err);
           console.log("found error with recaptcha");
           onError();
         }
