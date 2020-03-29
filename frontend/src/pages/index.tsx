@@ -58,9 +58,9 @@ const IndexPage = (args: IndexPageProps) => {
         };
         try {
           console.log("recaptcha ready");
-          console.log(process.env.RECAPTCHA_SITE_KEY);
+          console.log(process.env.GATSBY_RECAPTCHA_SITE_KEY);
           window.grecaptcha
-            .execute(process.env.RECAPTCHA_SITE_KEY, {
+            .execute(process.env.GATSBY_RECAPTCHA_SITE_KEY, {
               action: "login",
             })
             .then((recaptchaToken: string) => {
@@ -71,7 +71,7 @@ const IndexPage = (args: IndexPageProps) => {
               console.log("got token");
               axios
                 .post("/emaillist", listArgs, {
-                  baseURL: process.env.FUNCTIONS_URL,
+                  baseURL: process.env.GATSBY_FUNCTIONS_URL,
                 })
                 .then((res) => {
                   console.log(res.data);
