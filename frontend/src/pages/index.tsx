@@ -43,22 +43,18 @@ const IndexPage = (args: IndexPageProps) => {
       email: yup.string().email("invalid email address").required("required"),
     }),
     onSubmit: (formData, { setSubmitting, setStatus, resetForm }) => {
-      console.log("submitted form");
       if (!window.grecaptcha) {
         toast("cannot find recaptcha", {
           type: "error",
         });
         return;
       }
-      console.log("wait until recaptcha ready");
       window.grecaptcha.ready(() => {
         const onError = () => {
           setStatus({ success: false });
           setSubmitting(false);
         };
         try {
-          console.log("recaptcha ready");
-          console.log(process.env.GATSBY_RECAPTCHA_SITE_KEY);
           window.grecaptcha
             .execute(process.env.GATSBY_RECAPTCHA_SITE_KEY, {
               action: "login",
@@ -68,7 +64,6 @@ const IndexPage = (args: IndexPageProps) => {
                 email: formData.email,
                 token: recaptchaToken,
               };
-              console.log("got token");
               axios
                 .post("/emaillist", listArgs, {
                   baseURL: process.env.GATSBY_FUNCTIONS_URL,
@@ -91,16 +86,13 @@ const IndexPage = (args: IndexPageProps) => {
                 });
             })
             .catch((err: Error) => {
-              console.log("got error with recaptcha execute");
-              console.log(err);
               toast(err.message, {
                 type: "error",
               });
               onError();
             });
         } catch (err) {
-          console.log(err);
-          console.log("found error with recaptcha");
+          console.error(err);
           onError();
         }
       });

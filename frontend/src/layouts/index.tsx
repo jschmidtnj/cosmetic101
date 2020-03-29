@@ -48,7 +48,7 @@ const Layout = (args: LayoutArgs) => {
       {/*<Header siteTitle={data.site.siteMetadata.title} />*/}
       <Helmet>
         <script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`}
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.GATSBY_RECAPTCHA_SITE_KEY}`}
         ></script>
       </Helmet>
       <Fonts />
