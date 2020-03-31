@@ -1,18 +1,26 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
     "outDir": "./dist/",
-      "module": "commonjs",
-      "target": "esnext",
-      "jsx": "react",
-      "lib": ["dom", "esnext"],
-      "strict": true,
-      "noEmit": true,
-      "sourceMap": true,
-      "isolatedModules": true,
-      "esModuleInterop": true
-    },
-    "include": [
-        "./src/**/*"
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "esnext"
     ],
-    "exclude": ["node_modules", "public", ".cache"]
-  }
+    "strict": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "public",
+    ".cache",
+    "gatsby"
+  ]
+}
