@@ -103,5 +103,6 @@ export default {
       },
     },
     `gatsby-plugin-remove-trailing-slashes`,
+    `gatsby-plugin-styled-components`,
   ],
 };
